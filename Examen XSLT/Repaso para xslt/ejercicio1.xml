@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+	<xsl:template match="/">
+		<html lang="es">
+			<head>
+				<meta charset="UTF-8"/>
+				<title>Potencia ElÃ©ctrica</title>
+				<style>body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    margin: 0;
+                    padding: 30px;
+                    }
+                    
+                    table {
+                    width: 70%;
+                    margin: 0 auto;
+                    border-collapse: collapse;
+                    background-color: #ffffff;
+                    }
+                    
+                    th, td {
+                    border: 1px solid #444;
+                    padding: 10px;
+                    text-align: center;
+                    }
+                    
+                    .titulo {
+                    font-size: 1.6em;
+                    font-weight: bold;
+                    background-color: #d9e8fb;
+                    }
+                    
+                    .periodo {
+                    font-style: italic;
+                    background-color: #eef4fc;
+                    }
+                    
+                    .cabecera {
+                    background-color: #c7dbf7;
+                    font-weight: bold;
+                    }</style>
+			</head>
+			<body>
+				<table>
+					<tr>
+						<th colspan="4" class="titulo">Potencia ElÃ©ctrica</th>
+					</tr>
+					<tr>
+						<th colspan="4" class="periodo">Periodo: <xsl:value-of select="potencia/@periodo-inicio"/><xsl:text> hasta </xsl:text><xsl:value-of select="potencia/@periodo-fin"/></th>
+					</tr>
+					<tr class="cabecera">
+						<th>Fecha</th>
+						<th>Potencia de Red</th>
+						<th>Potencia Solar</th>
+						<th>Potencia Consumida</th>
+					</tr>
+					<xsl:for-each select="potencia/registro">
+                           <xsl:sort select="red > 0" order="ascending"/>
+						<tr>
+							<td>
+								<xsl:value-of select="@fecha"/>
+							</td>
+							<xsl:choose>
+								<xsl:when test="red > 0">
+									<td style="color:red;">
+										<xsl:value-of select="red"/>
+										<xsl:text>
+										</xsl:text>
+										<xsl:value-of select="red/@unidad"/>
+									</td>
+								</xsl:when>
+								<xsl:otherwise>
+									<td style="color:green;">
+										<xsl:value-of select="red"/>
+										<xsl:text>
+										</xsl:text>
+										<xsl:value-of select="red/@unidad"/>
+									</td>
+								</xsl:otherwise>
+							</xsl:choose>
+							<td>
+								<xsl:value-of select="fotovoltaica"/>
+								<xsl:value-of select="fotovoltaica/@unidad"/>
+							</td>
+							<xsl:choose>
+								<xsl:when test="vivienda > 5.5">
+									<td style="background:navy; color:white;">
+										<xsl:value-of select="vivienda"/>
+										<xsl:text>
+										</xsl:text>
+										<xsl:value-of select="vivienda/@unidad"/>
+									</td>
+								</xsl:when>
+								<xsl:otherwise>
+									<td>
+										<xsl:value-of select="vivienda"/>
+										<xsl:text>
+										</xsl:text>
+										<xsl:value-of select="vivienda/@unidad"/>
+									</td>
+								</xsl:otherwise>
+							</xsl:choose>
+						</tr>
+					</xsl:for-each>
+				</table>
+			</body>
+		</html>
+	</xsl:template>
+</xsl:stylesheet>
