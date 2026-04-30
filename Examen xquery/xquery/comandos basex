@@ -1,0 +1,64 @@
+Comandos del servidor BaseX
+basexserver stop
+
+Detiene el servidor de BaseX. Se usa cuando quieres apagar el servicio de base de datos.
+
+basexserver -s
+
+Inicia el servidor de BaseX en modo normal (servicio activo para conexiones).
+
+basexserver -c "ALTER ..."
+
+Ejecuta comandos de administración directamente en el servidor (por ejemplo cambios de configuración o usuarios).
+
+ss -ptnl
+
+Muestra los puertos abiertos y los procesos que los están usando. Sirve para ver si BaseX está escuchando en red.
+
+👤 Cliente de BaseX
+basexclient -U admin
+
+Conecta al cliente de BaseX como el usuario admin.
+
+basexclient -U usuario1 -P password
+
+Conecta al cliente usando un usuario y contraseña específicos.
+
+📂 Comandos dentro del cliente BaseX
+list
+
+Muestra todas las bases de datos disponibles.
+
+list <db>
+
+Muestra información o contenido relacionado con una base de datos específica.
+
+open mibase
+
+Abre la base de datos llamada mibase para trabajar con ella.
+
+add libros.xml
+
+Añade el archivo XML libros.xml a la base de datos abierta.
+
+show users
+
+Muestra la lista de usuarios creados en BaseX.
+
+exit
+
+Cierra el cliente de BaseX.
+
+🔐 Permisos (usuarios y bases de datos)
+GRANT NONE ON mibase TO usuario1
+
+Quita todos los permisos del usuario usuario1 sobre la base de datos mibase.
+
+GRANT READ ON mibase TO usuario1
+
+Da permiso de solo lectura a usuario1 en la base de datos mibase.
+
+🔎 Consultas XQuery
+xquery //titulo
+
+Ejecuta una consulta XQuery que busca todos los nodos <titulo> dentro del XML.
